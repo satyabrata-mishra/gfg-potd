@@ -18,21 +18,21 @@ public class Valid_Paranthesis
             if(x==')')
             {
             	char temp=stack.pop();
-            	if(temp=='}' || temp==']')
+            	if(temp=='{' || temp=='[')
             		return false;
             	break;
             }
             else if(x=='}')
             {
             	char temp=stack.pop();
-            	if(temp==')' || temp==']')
+            	if(temp=='(' || temp=='[')
             		return false;
             	break;
             }
             else if(x==']')
             {
             	char temp=stack.pop();
-            	if(temp=='}' || temp==')')
+            	if(temp=='{' || temp=='(')
             		return false;
             	break;
             }
