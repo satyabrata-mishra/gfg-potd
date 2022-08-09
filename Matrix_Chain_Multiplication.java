@@ -1,23 +1,26 @@
 package cp;
+import java.util.*;
 
-public class Matrix_Chain_Multiplication
+public class Matrix_Chain_Multiplication 
 {
-	public static int matrixChainOrder(int p[], int i, int j)
-    {
-		if (i==j)
+	static int dp[][]=new int[100][100];
+	public static int mcm(int a[],int i,int j)
+	{
+		if(i==j)
 			return 0;
-		int min = Integer.MAX_VALUE;
+		if(dp[i][j]!=-1)
+			return dp[i][j];
+		dp[i][j]=Integer.MAX_VALUE;
 		for(int k=i;k<j;k++)
-		{
-			int temp = matrixChainOrder(p,i,k)+matrixChainOrder(p,k+1,j)+ p[i-1]*p[k]*p[j];
-			min = Math.min(min, temp);
-		}
-		return min;
-    }
+			dp[i][j]=Math.min(dp[i][j], mcm(a,i,k)+mcm(a,k+1,j)+a[i-1]*a[k]*a[j]);
+		return dp[i][j];
+	}
 	public static void main(String[] args) 
 	{
-		int p[] = {3, 3, 3};
-		System.out.println(matrixChainOrder(p , 1 , p.length-1));
+		int arr[]= {1,2,3,4};
+		for(int[] rows:dp)
+			Arrays.fill(rows, -1);
+		System.out.println(mcm(arr,1,arr.length-1));
 	}
 
 }
