@@ -1,29 +1,53 @@
 package cp;
+import java.util.*;
 public class Count_Palindromic_Subsequences 
 {
-	public static long countPS(String s)
+	public static boolean isPalindrome(String s)
+	{
+		int low = 0,high = s.length()-1;
+		while(low<high)
+			if(s.charAt(low++)!=s.charAt(high--))
+				return false;
+		return true;
+	}
+	public static String removeLastCharacter(String s)
+	{
+		char ch[]=s.toCharArray();
+		s="";
+		for(int i=0;i<ch.length-1;i++)
+			s+=ch[i];
+		return s;
+	}
+	public static void subsequence(String s,int i,String cur,ArrayList<String> ans)
+	{
+		if(i==s.length())
+		{
+			ans.add(new String(cur));
+			return;
+		}
+		cur+=s.charAt(i);
+		subsequence(s,i+1,cur,ans);
+		cur = removeLastCharacter(cur);
+		subsequence(s,i+1,cur,ans);
+	}
+	public static long countPS(String str)
     {
-		final long MOD = 1000_000_007; 
-        int len = s.length();
-        long[][] dp = new long[len][len];
-        for(int i = len - 1; i >= 0; --i)
-        {
-            dp[i][i] = 1;
-            for(int j = i + 1; j < len; ++j)
-            {
-                 if(s.charAt(i) == s.charAt(j))
-                    dp[i][j] = ((dp[i+1][j] + dp[i][j-1]) % MOD + 1) % MOD; 
-                 else
-                    dp[i][j] = (dp[i][j-1] + dp[i + 1][j]- dp[i + 1][j-1] + MOD) % MOD;
-                
-            }
-        }
-        return dp[0][len-1];
-		
+		ArrayList<String> ans = new ArrayList<String>();
+		subsequence(str,0,"",ans);
+		Collections.sort(ans);
+		ans.remove("");
+		int count = 0;
+		for(String i:ans)
+			if(isPalindrome(i))
+			{
+				System.out.print(i+" ");
+				++count;
+			}
+		return count;
     }
 	public static void main(String[] args) 
 	{
-		System.out.println(countPS("aab"));
+		System.out.println("\n"+countPS("abcd"));
 	}
 
 }
