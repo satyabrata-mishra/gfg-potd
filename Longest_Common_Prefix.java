@@ -1,26 +1,33 @@
-package cp;public class Longest_Common_Prefix
+package cp;
+
+public class Longest_Common_Prefix 
 {
-	public static String commonPrefix(String str1, String str2)
+	public static String common(String s1,String s2)
 	{
-		String result="";
-		for(int i=0, j=0;i<str1.length() && j<str2.length();i++,j++)
-			if(str1.charAt(i)==str2.charAt(j))
-				result+=str1.charAt(i);
-		return result;
+		String res = "";
+		for(int i=0,j=0;i<s1.length()&& j<s2.length();i++,j++)
+		{
+			if(s1.charAt(i)!=s2.charAt(j))
+				return res;
+			res+=s1.charAt(i);
+		}
+		if(res.isBlank())
+			return "-1";
+		return res;
 	}
-	public static String lcp(String s[],int n)
+	public static String longestCommonPrefix(String arr[], int n)
     {
-		String result=s[0];
+		String result=arr[0];
 		for(int i=1;i<n;i++)
-			result=commonPrefix(result,s[i]);
-		if(result.equals(""))
-		    return "-1";
+			result=common(result,arr[i]);
+		if(result.length()==0)
+			return "-1";
 		return result;
     }
-	public static void main(String[] args)
+	public static void main(String[] args) 
 	{
-		String str[]= {"abc", "abcd", "abcde", "abcdef"};
-		System.out.println(lcp(str,str.length));
+		String arr[] = {"hello", "world"};
+		System.out.println(longestCommonPrefix(arr,arr.length));
 	}
 
 }
