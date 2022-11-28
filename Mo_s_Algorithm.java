@@ -2,7 +2,7 @@ package cp;
 
 public class Mo_s_Algorithm 
 {
-	static void combinationUtil(int arr[], int n, int r, int index,int data[], int i)
+	static void combinationUtil(int arr[],int i,int data[],int index, int n, int r)
 	{
 		if (index == r)
 		{
@@ -14,16 +14,16 @@ public class Mo_s_Algorithm
 		if (i >= n)
 			return;
 		data[index] = arr[i];
-		combinationUtil(arr, n, r, index+1, data, i+1);
-		combinationUtil(arr, n, r, index, data, i+1);
+		combinationUtil(arr,i+1,data,index+1,n,r);
+		combinationUtil(arr,i+1,data,index,n,r);
 	}
 	public static void main(String[] args) 
 	{
-		int arr[] = {1, 2, 3, 4, 5};
+	  int arr[] = {1, 2, 3, 4};
         int r = 2;
         int n = arr.length;
         int data[]=new int[r];
-        combinationUtil(arr, n, r, 0, data, 0);
+        combinationUtil(arr,0,data,0,n,r);
 	}
 
 }
