@@ -4,34 +4,21 @@ public class Subarray_With_Given_Sum
 {
 	public static ArrayList<Integer> subarraySum(int[] arr, int n, int s) 
     {
-        ArrayList<Integer> ans = new ArrayList<Integer>();
-        int sum = 0;
-        for(int i=0;i<n;i++)
-        {
-            for(int j=i;j<n;j++)
-            {
-                sum+=arr[j];
-                if(sum==s)
-                {
-                    ans.add(i+1);
-                    ans.add(j+1);
-                    return ans;
-                }
-                else if(sum>s)
-                {
-                    sum=0;
-                    break;
-                }
-            }
-        }
-        ans.add(-1);
-        return ans;
+		int j=0,sum=0;
+		for(int i=0;i<n;i++)
+		{
+			sum+=arr[i];
+			while(j<i && sum>s)
+				sum-=arr[j++];
+			if(sum==s)
+				return new ArrayList<Integer>(Arrays.asList(j+1,i+1));
+		}
+		return new ArrayList<Integer>(Arrays.asList(-1));
     }
 	public static void main(String[] args) 
 	{
-		int arr[] = {1,2,3,7,5};
-		int sum = 12;
-		System.out.println(subarraySum(arr,arr.length,sum));
+		int S=15;
+		int A[] = {1,2,3,4,5,6,7,8,9,10};
+		System.out.println(subarraySum(A,A.length,S));
 	}
-
 }
