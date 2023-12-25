@@ -1,38 +1,42 @@
 package cp;
 import java.util.*;
-public class Buy_Maximum_Stocks_if_i_stocks_can_be_bought_on_i_th_day
+class Stock
+{
+	int price,day;
+	Stock(int price,int day)
+	{
+		this.price=price;
+		this.day=day;
+	}
+}
+public class Buy_Maximum_Stocks_if_i_stocks_can_be_bought_on_i_th_day 
 {
 	public static int buyMaximumProducts(int n, int k, int[] price) 
     {
-		int arr[][]=new int[n][2];
-        for(int i=0;i<n;i++)
-        {
-        	arr[i][0]=price[i];
-        	arr[i][1]=i+1;
-        }
-        Arrays.sort(arr,(a,b)-> a[0]-b[0]);
-        int ans=0;
-        for(int i=0;i<n && k>=arr[i][0];i++)
-        {
-        	int cost=arr[i][0],avaliable_stocks=arr[i][1];
-        	int can_be_bought=k/cost;
-        	if(can_be_bought>=avaliable_stocks)
-        	{
-        		ans+=avaliable_stocks;
-        		k-=cost*avaliable_stocks;
-        	}
-        	else
-        	{
-        		ans+=can_be_bought;
-        		k-=can_be_bought*cost;
-        	}
-        }
-        return ans;
+		Stock ob[]=new Stock[n];
+		for(int i=0;i<n;i++)
+			ob[i]=new Stock(price[i],i+1);
+		Arrays.sort(ob,(a,b)->a.price-b.price);
+		int ans=0;
+		for(int i=0;i<n;i++)
+		{
+			if(ob[i].price*ob[i].day<k)
+			{
+				ans+=ob[i].day;
+				k-=ob[i].price*ob[i].day;
+			}
+			else
+			{
+				 ans+=k/ob[i].price;
+				 break;
+			}
+		}
+		return ans;
     }
 	public static void main(String[] args) 
 	{
-		int price[] =  {5, 10, 10, 2, 1, 7, 8, 9, 5, 3}; //7
-		int k=9;
+		int price[]={10,7,19};
+		int k=45;
 		System.out.println(buyMaximumProducts(price.length,k,price));
 	}
 }
