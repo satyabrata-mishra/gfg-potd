@@ -4,35 +4,21 @@ public class Array_Pair_Sum_Divisibility_Problem
 {
 	public static boolean canPair(int[] nums, int k) 
     {
-		int n = nums.length,count=0;
-		ArrayList<Integer> al = new ArrayList<Integer>();
-		for(int i:nums)
-			if(i%k==0)
-				++count;
-			else
-				al.add(i%k);
-		if(count%2!=0)
+		if(nums.length%2==1) 
 			return false;
-		Collections.sort(al);
-		System.out.println(al);
-		int start=0,end=al.size()-1;
-		while(start<=end)
-		{
-			if(al.get(start)+al.get(end)==k)
-			{
-				start++;
-				end--;
-			}
-			else
-				return false;
-		}
-		return true;
+        HashMap<Integer,Integer> map=new HashMap<Integer, Integer>();
+        for(int i=0; i<nums.length; i++)
+        	map.put(nums[i]%k,map.getOrDefault(nums[i]%k,0)+1);
+        boolean ans=true;
+        for(int i=1; i<k; i++)
+        	if(map.get(i)!=map.get(k-i))
+        		return false;
+        return ans;
     }
-	public static void main(String[] args) 
+	public static void main(String[] args)
 	{
-		int arr[] = {9, 5, 7, 3};
-		int k = 6;
-		System.out.println(canPair(arr,k));
+		int nums[] = {6, 14, 12, 14};
+		int k=2;
+		System.out.println(canPair(nums,k));
 	}
-
 }
